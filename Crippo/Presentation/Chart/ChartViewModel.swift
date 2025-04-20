@@ -45,34 +45,13 @@ extension ChartViewModel {
     }
     
     func transform() {
-//        input.searchQuery
-//            .sink { [weak self] id in
-//                print("검색되는 즁", id)
-//                guard let self else { return }
-//                Task {  [weak self] in
-//                    guard let self else { return }
-//                    do {
-//                        let response = try await CoinClient.shared.coinMarket(id: id)
-//                        output.results = response.toEntity()
-//                        print("차트 네트워크 완료!!!!")
-//                        print(response)
-//                    } catch {
-//                        // 에러 처리 필욕
-//                    }
-//                }
-//            }
-//            .store(in: &cancellables)
-        
         input.searchQuery
             .sink { [weak self] id in
                 guard let self else { return }
-                print("🔍 ChartViewModel - searching for coin with ID: \(id)")
                 Task { [weak self] in
                     guard let self else { return }
                     do {
-                        print("📡 ChartViewModel - making API request")
                         let response = try await CoinClient.shared.coinMarket(id: id)
-                        print("✅ ChartViewModel - received response: \(response)")
                         output.results = response.map { $0.toEntity() }.first ?? CoinMarketEntity.empty
                     } catch {
                         print("❌ ChartViewModel - error: \(error)")

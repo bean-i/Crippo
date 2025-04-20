@@ -48,19 +48,28 @@ struct SparkLinePrice: Decodable {
 }
 
 extension CoinMarketResponseDTO {
+    
     func toEntity() -> CoinMarketEntity {
+        
+        var percentage = ""
+        if self.priceChange24h > 0 {
+            percentage = "+\(self.priceChange24h)%"
+        } else {
+            percentage = "\(self.priceChange24h)%"
+        }
+        
         return CoinMarketEntity(
             coinID: self.id,
             name: self.name,
             image: self.image,
-            currentPrice: String(self.currentPrice),
-            priceChange24h: String(self.priceChange24h),
-            lastUpdate: self.lastUpdate,
-            low24h: String(self.low24h),
-            high24h: String(self.high24h),
-            allTimeHighPrice: String(self.allTimeHighPrice),
+            currentPrice: "₩\(self.currentPrice.formatted())",
+            priceChange24h: percentage,
+            lastUpdate: DateFormatter.monthDayDate(self.lastUpdate),
+            low24h: "₩\(self.low24h.formatted())",
+            high24h: "₩\(self.high24h.formatted())",
+            allTimeHighPrice: "₩\(self.allTimeHighPrice.formatted())",
             allTimeHighPriceDate: String(self.allTimeLowPriceDate),
-            allTimeLowPrice: String(self.allTimeLowPrice),
+            allTimeLowPrice: "₩\(self.allTimeLowPrice.formatted())",
             allTimeLowPriceDate: self.allTimeLowPriceDate,
             marketCap: String(self.marketCap),
             fullyDilutedValue: String(self.fullyDilutedValue),
