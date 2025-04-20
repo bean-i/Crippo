@@ -15,6 +15,8 @@ final class SearchViewModel: ViewModelType {
     @Published var output = Output()
     var cancellables = Set<AnyCancellable>()
     
+    private let favoriteService = FavoriteCoinDataService.shared
+    
     init() {
         transform()
     }
@@ -26,19 +28,20 @@ extension SearchViewModel {
     struct Input {
         let searchQuery = CurrentValueSubject<String, Never>("")
         let coinRowTapped = PassthroughSubject<Void, Never>()
-        let saveButtonTapped = PassthroughSubject<Void, Never>()
+        let toggleFavorite = PassthroughSubject<String, Never>()
     }
     
     // Input을 Action과 연결해서 send
     enum Action {
         case searchQuery(String)
         case coinRowTapped
-        case saveButtonTapped
+        case toggleFavorite(String)
     }
     
     // 업데이트 되면,, ~~
     struct Output {
         var results: [CoinSearchEntity] = []
+        var favoriteIDs: Set<String> = []
     }
     
     func action(_ action: Action) {
@@ -46,9 +49,9 @@ extension SearchViewModel {
         case .searchQuery(let query):
             input.searchQuery.send(query)
         case .coinRowTapped:
-            print("as")
-        case .saveButtonTapped:
-            print("r")
+            print("코인 선택 됨.")
+        case .toggleFavorite(let coinID):
+            toggleFavorite(coinID: coinID)
         }
     }
     
@@ -61,7 +64,7 @@ extension SearchViewModel {
                     do {
                         let response = try await CoinClient.shared.searchCoin(query: query)
                         output.results = response.coins.map { $0.toEntity() }
-                        print("***", response.coins)
+                        updateFavoriteStatus()
                     } catch {
                         // 에러 처리 필욕
                     }
@@ -69,6 +72,33 @@ extension SearchViewModel {
             }
             .store(in: &cancellables)
 
+        input.toggleFavorite
+            .sink { [weak self] coinID in
+                guard let self else { return }
+                self.toggleFavorite(coinID: coinID)
+            }
+            .store(in: &cancellables)
+    }
+    
+    // 코인 ID가 즐겨찾기인지 확인
+    func isFavorite(coinID: String) -> Bool {
+        return favoriteService.getAllFavoriteCoins().contains(where: { $0.coinID == coinID })
+    }
+    
+    // 즐겨찾기 토글
+    func toggleFavorite(coinID: String) {
+        if isFavorite(coinID: coinID) {
+            favoriteService.remove(coinID: coinID)
+        } else {
+            favoriteService.add(coinID: coinID)
+        }
+        // 결과 업데이트
+        updateFavoriteStatus()
+    }
+    
+    // 모든 결과의 즐겨찾기 상태 업데이트
+    func updateFavoriteStatus() {
+        output.favoriteIDs = Set(favoriteService.getAllFavoriteCoins().map { $0.coinID })
     }
     
 }

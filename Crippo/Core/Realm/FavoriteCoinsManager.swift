@@ -37,17 +37,11 @@ class FavoriteCoinDataService {
         }
         
         // 즐겨찾기가 10개 이상인지 확인
-        if (favoriteCoins?.count ?? 0) >= maxFavorites {
-            // 가장 오래된 항목 삭제
-            if let oldestCoin = favoriteCoins?.last {
-                do {
-                    try realm.write {
-                        realm.delete(oldestCoin)
-                    }
-                } catch {
-                    print("Error removing oldest favorite coin: \(error)")
-                }
-            }
+        let currentCount = realm.objects(FavoriteCoin.self).count
+        if currentCount >= maxFavorites {
+            // 이미 10개가 있으면 추가하지 않음
+            print("최대 즐겨찾기 개수(10개)에 도달했습니다.")
+            return
         }
         
         let favoriteCoin = FavoriteCoin()
