@@ -98,6 +98,7 @@ private struct StatItem: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(.title3)
+                .bold()
                 .foregroundColor(title == "고가" || title == "신고점" ? .red : .blue)
             Text(value.isEmpty ? "-" : value)
                 .font(.subheadline)
