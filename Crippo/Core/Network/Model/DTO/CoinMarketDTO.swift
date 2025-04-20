@@ -53,9 +53,9 @@ extension CoinMarketResponseDTO {
         
         var percentage = ""
         if self.priceChange24h > 0 {
-            percentage = "+\(self.priceChange24h)%"
+            percentage = "+\(String(format: "%.2f", self.priceChange24h))%"
         } else {
-            percentage = "\(self.priceChange24h)%"
+            percentage = "\(String(format: "%.2f", self.priceChange24h))%"
         }
         
         return CoinMarketEntity(

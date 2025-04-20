@@ -20,8 +20,9 @@ enum CoinRequestDTO {
             return CoinMarketRequestDTO(ids: id)
         }
     }
-    
 }
+
+struct EmptyParameters: Encodable { }
 
 struct CoinSearchRequestDTO: Encodable {
     let query: String
