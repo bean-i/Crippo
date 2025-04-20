@@ -35,10 +35,11 @@ extension ChartViewModel {
         case toggleFavorite(String)
     }
     
-    // 업데이트 되면,, ~~
     struct Output {
         var results: CoinMarketEntity = CoinMarketEntity.empty
         var isFavorite: Bool = false
+        var toastMessage: String? = nil
+        var showToast: Bool = false
     }
     
     func action(_ action: Action) {
@@ -76,12 +77,33 @@ extension ChartViewModel {
     
     // 즐겨찾기 토글 메서드
     func toggleFavorite(coinID: String) {
+        let favoriteService = FavoriteCoinDataService.shared
+        
         if isFavorite(coinID: coinID) {
-            favoriteService.remove(coinID: coinID)
+            // 제거
+            let result = favoriteService.remove(coinID: coinID)
+            if result == .removed {
+                showToastMessage("제거되었습니다.")
+            }
         } else {
-            favoriteService.add(coinID: coinID)
+            // 추가
+            let result = favoriteService.add(coinID: coinID)
+            switch result {
+            case .added:
+                showToastMessage("추가되었습니다.")
+            case .limitReached:
+                showToastMessage("즐겨찾기는 최대 10개까지만 가능합니다.")
+            default:
+                break
+            }
         }
         output.isFavorite = isFavorite(coinID: coinID)
+    }
+    
+    // 토스트 메시지 표시
+    private func showToastMessage(_ message: String) {
+        output.toastMessage = message
+        output.showToast = true
     }
     
 }

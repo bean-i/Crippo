@@ -42,6 +42,8 @@ extension SearchViewModel {
     struct Output {
         var results: [CoinSearchEntity] = []
         var favoriteIDs: Set<String> = []
+        var toastMessage: String? = nil
+        var showToast: Bool = false
     }
     
     func action(_ action: Action) {
@@ -66,7 +68,7 @@ extension SearchViewModel {
                         output.results = response.coins.map { $0.toEntity() }
                         updateFavoriteStatus()
                     } catch {
-                        // 에러 처리 필욕
+                        // 에러 처리 필요
                     }
                 }
             }
@@ -88,9 +90,22 @@ extension SearchViewModel {
     // 즐겨찾기 토글
     func toggleFavorite(coinID: String) {
         if isFavorite(coinID: coinID) {
-            favoriteService.remove(coinID: coinID)
+            // 제거
+            let result = favoriteService.remove(coinID: coinID)
+            if result == .removed {
+                showToastMessage("제거되었습니다.")
+            }
         } else {
-            favoriteService.add(coinID: coinID)
+            // 추가
+            let result = favoriteService.add(coinID: coinID)
+            switch result {
+            case .added:
+                showToastMessage("추가되었습니다.")
+            case .limitReached:
+                showToastMessage("즐겨찾기는 최대 10개까지만 가능합니다.")
+            default:
+                break
+            }
         }
         // 결과 업데이트
         updateFavoriteStatus()
@@ -101,5 +116,9 @@ extension SearchViewModel {
         output.favoriteIDs = Set(favoriteService.getAllFavoriteCoins().map { $0.coinID })
     }
     
+    // 토스트 메시지 표시
+    private func showToastMessage(_ message: String) {
+        output.toastMessage = message
+        output.showToast = true
+    }
 }
-

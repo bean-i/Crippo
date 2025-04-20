@@ -12,6 +12,13 @@ struct ChartView: View {
     @StateObject private var viewModel = ChartViewModel()
     let coinID: String  // 이전 화면에서 코인 ID를 받아옴
     
+    private var isShowingToast: Binding<Bool> {
+        Binding<Bool>(
+            get: { viewModel.output.showToast },
+            set: { viewModel.output.showToast = $0 }
+        )
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading) {
@@ -55,6 +62,10 @@ struct ChartView: View {
                 }
             }
         }
+        .toast(
+            isShowing: isShowingToast,
+            message: viewModel.output.toastMessage ?? ""
+        )
     }
 }
 

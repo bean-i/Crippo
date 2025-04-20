@@ -13,6 +13,13 @@ struct SearchView: View {
     @State private var path: [CoinSearchEntity] = []
     @State private var query = ""
     
+    private var isShowingToast: Binding<Bool> {
+        Binding<Bool>(
+            get: { viewModel.output.showToast },
+            set: { viewModel.output.showToast = $0 }
+        )
+    }
+    
     var body: some View {
         NavigationStack(path: $path) {
             List {
@@ -33,14 +40,18 @@ struct SearchView: View {
             .onSubmit(of: .search) {
                 viewModel.action(.searchQuery(query))
             }
-            .onAppear {
-                viewModel.updateFavoriteStatus()
-            }
             .navigationTitle("Search")
             .navigationDestination(for: CoinSearchEntity.self) { coin in
                 ChartView(coinID: coin.coinID)
             }
+            .onAppear {
+                viewModel.updateFavoriteStatus()
+            }
         }
+        .toast(
+            isShowing: isShowingToast,
+            message: viewModel.output.toastMessage ?? ""
+        )
     }
 }
 
@@ -76,7 +87,7 @@ private struct SearchResultRow: View {
             Button {
                 viewModel.action(.toggleFavorite(coin.coinID))
             } label: {
-                Image(systemName: viewModel.isFavorite(coinID: coin.coinID) ? "star.fill" : "star")
+                Image(systemName: viewModel.output.favoriteIDs.contains(coin.coinID) ? "star.fill" : "star")
                     .foregroundColor(.point)
             }
             .buttonStyle(PlainButtonStyle())  // 버튼이 부모 onTapGesture에 영향을 주지 않도록
