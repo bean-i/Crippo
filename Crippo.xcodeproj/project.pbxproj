@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		EA5ADFAB2DB26F9E00658153 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EA5ADFAA2DB26F9E00658153 /* .gitignore */; };
+		EA5ADFAD2DB26FB100658153 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5ADFAC2DB26FB100658153 /* APIKey.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		EA4676E22DB2319E0036E37C /* Crippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA5ADFAA2DB26F9E00658153 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		EA5ADFAC2DB26FB100658153 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +39,8 @@
 		EA4676D92DB2319E0036E37C = {
 			isa = PBXGroup;
 			children = (
+				EA5ADFAC2DB26FB100658153 /* APIKey.swift */,
+				EA5ADFAA2DB26F9E00658153 /* .gitignore */,
 				EA4676E42DB2319E0036E37C /* Crippo */,
 				EA4676E32DB2319E0036E37C /* Products */,
 			);
@@ -109,6 +118,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA5ADFAB2DB26F9E00658153 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA5ADFAD2DB26FB100658153 /* APIKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
