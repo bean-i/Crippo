@@ -15,6 +15,8 @@ final class ChartViewModel: ViewModelType {
     @Published var output = Output()
     var cancellables = Set<AnyCancellable>()
     
+    private let favoriteService = FavoriteCoinDataService.shared
+    
     init() {
         transform()
     }
@@ -30,17 +32,22 @@ extension ChartViewModel {
     // Input을 Action과 연결해서 send
     enum Action {
         case searchQuery(String)
+        case toggleFavorite(String)
     }
     
     // 업데이트 되면,, ~~
     struct Output {
         var results: CoinMarketEntity = CoinMarketEntity.empty
+        var isFavorite: Bool = false
     }
     
     func action(_ action: Action) {
         switch action {
         case .searchQuery(let id):
             input.searchQuery.send(id)
+            
+        case .toggleFavorite(let id):
+            toggleFavorite(coinID: id)
         }
     }
     
@@ -60,6 +67,21 @@ extension ChartViewModel {
             }
             .store(in: &cancellables)
 
+    }
+    
+    // 즐겨찾기 여부 확인 메서드
+    func isFavorite(coinID: String) -> Bool {
+        return favoriteService.getAllFavoriteCoins().contains(where: { $0.coinID == coinID })
+    }
+    
+    // 즐겨찾기 토글 메서드
+    func toggleFavorite(coinID: String) {
+        if isFavorite(coinID: coinID) {
+            favoriteService.remove(coinID: coinID)
+        } else {
+            favoriteService.add(coinID: coinID)
+        }
+        output.isFavorite = isFavorite(coinID: coinID)
     }
     
 }

@@ -40,15 +40,17 @@ struct ChartView: View {
             Spacer()
         }
         .task {
+            viewModel.output.isFavorite = viewModel.isFavorite(coinID: coinID)
             viewModel.action(.searchQuery(coinID))
         }
         .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    // 즐겨찾기
+                    viewModel.action(.toggleFavorite(coinID))
                 } label: {
-                    Image(systemName: "star")
+                    
+                    Image(systemName: viewModel.output.isFavorite ? "star.fill" : "star")
                         .foregroundColor(.point)
                 }
             }
