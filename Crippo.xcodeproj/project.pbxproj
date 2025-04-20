@@ -9,7 +9,23 @@
 /* Begin PBXBuildFile section */
 		EA5ADFAB2DB26F9E00658153 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EA5ADFAA2DB26F9E00658153 /* .gitignore */; };
 		EA5ADFAD2DB26FB100658153 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5ADFAC2DB26FB100658153 /* APIKey.swift */; };
+		EA5ADFD72DB4FDDA00658153 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EA5ADFD62DB4FDDA00658153 /* RealmSwift */; };
+		EA5ADFDA2DB50AD600658153 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = EA5ADFD62DB4FDDA00658153 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EA5ADFDB2DB50AD600658153 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EA5ADFDA2DB50AD600658153 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EA4676E22DB2319E0036E37C /* Crippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA5ADFD72DB4FDDA00658153 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +81,7 @@
 				EA4676DE2DB2319E0036E37C /* Sources */,
 				EA4676DF2DB2319E0036E37C /* Frameworks */,
 				EA4676E02DB2319E0036E37C /* Resources */,
+				EA5ADFDB2DB50AD600658153 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -74,6 +92,7 @@
 			);
 			name = Crippo;
 			packageProductDependencies = (
+				EA5ADFD62DB4FDDA00658153 /* RealmSwift */,
 			);
 			productName = Crippo;
 			productReference = EA4676E22DB2319E0036E37C /* Crippo.app */;
@@ -103,6 +122,9 @@
 			);
 			mainGroup = EA4676D92DB2319E0036E37C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EA5ADFD52DB4FDDA00658153 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EA4676E32DB2319E0036E37C /* Products */;
 			projectDirPath = "";
@@ -337,6 +359,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA5ADFD52DB4FDDA00658153 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 20.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA5ADFD62DB4FDDA00658153 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA5ADFD52DB4FDDA00658153 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EA4676DA2DB2319E0036E37C /* Project object */;
 }
