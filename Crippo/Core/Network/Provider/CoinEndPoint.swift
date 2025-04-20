@@ -11,6 +11,7 @@ enum CoinEndPoint: EndPoint {
     
     case coinSearch(String)
     case coinMarket(String)
+    case trending
     
     var baseURL: String? { return APIKey.BaseURL }
     
@@ -20,6 +21,8 @@ enum CoinEndPoint: EndPoint {
             return "/search"
         case .coinMarket:
             return "/coins/markets"
+        case .trending:
+            return "/search/trending"
         }
     }
     
@@ -37,6 +40,8 @@ enum CoinEndPoint: EndPoint {
             return CoinRequestDTO.coinSearch(query).queryParameters
         case .coinMarket(let id):
             return CoinRequestDTO.coinMarket(id).queryParameters
+        case .trending:
+            return EmptyParameters()
         }
     }
     

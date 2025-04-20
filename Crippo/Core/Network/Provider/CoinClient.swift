@@ -30,4 +30,13 @@ final class CoinClient {
         }
     }
     
+    func fetchTrending() async throws -> TrendingDTO {
+        do {
+            return try await provider.request(.trending)
+        } catch {
+            print(error)
+            throw error
+        }
+    }
+    
 }
