@@ -93,16 +93,16 @@ extension SearchViewModel {
             // 제거
             let result = favoriteService.remove(coinID: coinID)
             if result == .removed {
-                showToastMessage("제거되었습니다.")
+                showToastMessage("お気に入りから削除しました。")
             }
         } else {
             // 추가
             let result = favoriteService.add(coinID: coinID)
             switch result {
             case .added:
-                showToastMessage("추가되었습니다.")
+                showToastMessage("お気に入りに追加しました。")
             case .limitReached:
-                showToastMessage("즐겨찾기는 최대 10개까지만 가능합니다.")
+                showToastMessage("お気に入りは最大10件まで登録できます。")
             default:
                 break
             }

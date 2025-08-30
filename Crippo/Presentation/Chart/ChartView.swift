@@ -20,8 +20,8 @@ struct ChartView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(viewModel.output.results.name)
                     .font(.largeTitle).bold()
                 Text(viewModel.output.results.currentPrice)
@@ -39,7 +39,7 @@ struct ChartView: View {
                 .frame(height: 200)
                 .padding(.horizontal)
 
-            Text("\(viewModel.output.results.lastUpdate) 업데이트")
+            Text("\(viewModel.output.results.lastUpdate) アップデート")
                 .font(.caption2)
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .trailing)
@@ -76,13 +76,13 @@ private struct PriceStatsView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 15) {
-                StatItem(title: "고가", value: viewModel.output.results.high24h)
-                StatItem(title: "신고점", value: viewModel.output.results.allTimeHighPrice)
+                StatItem(title: "高値", value: viewModel.output.results.high24h)
+                StatItem(title: "最高値", value: viewModel.output.results.allTimeHighPrice)
             }
             Spacer()
             VStack(alignment: .leading, spacing: 15) {
-                StatItem(title: "저가", value: viewModel.output.results.low24h)
-                StatItem(title: "신저점", value: viewModel.output.results.allTimeLowPrice)
+                StatItem(title: "安値", value: viewModel.output.results.low24h)
+                StatItem(title: "最安値", value: viewModel.output.results.allTimeLowPrice)
             }
             Spacer()
         }
@@ -99,7 +99,7 @@ private struct StatItem: View {
             Text(title)
                 .font(.title3)
                 .bold()
-                .foregroundColor(title == "고가" || title == "신고점" ? .red : .blue)
+                .foregroundColor(title == "高値" || title == "最高値" ? .red : .blue)
             Text(value.isEmpty ? "-" : value)
                 .font(.subheadline)
         }

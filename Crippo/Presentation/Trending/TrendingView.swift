@@ -21,7 +21,7 @@ struct TrendingView: View {
                     // My Favorite 섹션 (즐겨찾기 2개 이상일 때만 표시)
                     if viewModel.output.favoriteCoins.count >= 2 {
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("My Favorite")
+                            Text("お気に入り")
                                 .font(.headline)
                                 .fontWeight(.bold)
                             
@@ -45,7 +45,7 @@ struct TrendingView: View {
                     
                     // Top 15 Coin 섹션
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Top 15 Coin")
+                        Text("人気コイン TOP 15")
                             .font(.headline)
                             .fontWeight(.bold)
                         
@@ -70,7 +70,7 @@ struct TrendingView: View {
                     
                     // Top 7 NFT 섹션
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Top 7 NFT")
+                        Text("人気NFT TOP 7")
                             .font(.headline)
                             .fontWeight(.bold)
                         
@@ -91,7 +91,7 @@ struct TrendingView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Crypto Coin")
+            .navigationTitle("Crypto コイン")
             .onAppear {
                 viewModel.action(.viewAppeared)
             }

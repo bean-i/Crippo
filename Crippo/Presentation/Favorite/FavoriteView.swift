@@ -45,7 +45,7 @@ struct FavoriteView: View {
                     }
                 }
             }
-            .navigationTitle("Favorite Coin")
+            .navigationTitle("お気に入りコイン")
             .navigationDestination(isPresented: Binding(
                 get: { viewModel.output.selectedCoinID != nil },
                 set: { if !$0 { viewModel.action(.clearSelectedCoin) } }

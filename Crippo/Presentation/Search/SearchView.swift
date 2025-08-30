@@ -36,11 +36,11 @@ struct SearchView: View {
                 }
             }
             .listStyle(.plain)
-            .searchable(text: $query, prompt: "코인 검색")
+            .searchable(text: $query, prompt: "コインを検索")
             .onSubmit(of: .search) {
                 viewModel.action(.searchQuery(query))
             }
-            .navigationTitle("Search")
+            .navigationTitle("検索")
             .navigationDestination(for: CoinSearchEntity.self) { coin in
                 ChartView(coinID: coin.coinID)
             }
