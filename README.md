@@ -1,6 +1,5 @@
 # 📈 Crippo  
-- **アプリ名**: Crippo  
-- **開発期間**: 2025年4月 
+- **開発期間**: 2025年4月（4日間）
 - **開発形態**: 個人開発  
 
 ## ✅ 主な機能  
@@ -16,9 +15,10 @@
 ## 💻 技術スタック  
 - **言語**: `Swift`  
 - **フレームワーク**: `SwiftUI`  
-- **アーキテクチャ**: `MVVM (Action/Output パターン)`  
+- **アーキテクチャ**: `MVVM (Input/Output パターン)`  
 - **非同期処理**: `Combine`, `Swift Concurrency (async/await)`  
-- **ネットワーク**: `URLSession`  
+- **ネットワーク**: `URLSession`
+-  **データベース**: `Realm`  
 
 ## 🔎 工夫した点  
 ### 1. SwiftUI 状態管理とレンダリング最適化  
