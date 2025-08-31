@@ -22,18 +22,18 @@
 
 ## 🔎 工夫した点  
 ### 1. SwiftUI 状態管理とレンダリング最適化  
-- `@StateObject`でViewModelのライフサイクルを固定し、下位ビューには`@ObservedObject`で共有  
-- 画面専用のView State(Output)のみを公開し、不要な再レンダリングを抑制  
-- カスタム`LazyView`を導入し、TabViewの非表示タブ初期化を遅延させ初回描画を軽量化  
+- `@StateObject`で**ViewModelのライフサイクルを固定**し、下位ビューには`@ObservedObject`で共有  
+- 画面専用の**View State(Output)のみを公開**し、**不要な再レンダリングを抑制**  
+- **カスタム`LazyView`**を導入し、TabViewの非表示タブ初期化を**遅延**させ初回描画を軽量化  
 
 ### 2. MVVM + Action/Output パターン  
-- `ViewModelType`プロトコルでInput/Action/Output構造を統一  
-- ViewはAction送信とOutput購読のみを担当し、単方向データフローを維持  
+- `ViewModelType`プロトコルで**Input/Action/Output構造を統一**  
+- Viewは**Input送信とOutput購読のみを担当**し、**単方向データフローを維持**  
 
 ### 3. Combine + Swift Concurrency  
-- ユーザー入力や画面イベントをSubjectベースで管理 (Combine)  
-- ネットワーク呼び出しは`async/await`で実装し、依存関係のないものは`async let`で並列実行  
-- ViewModelでCombineイベントとConcurrency処理を結合し、Outputに反映  
+- ユーザー入力や画面イベントを**Subjectベースで管理** (Combine)  
+- ネットワーク呼び出しは**`async/await`で実装**し、依存関係のないものは**`async let`で並列実行**  
+- ViewModelで**CombineイベントとConcurrency処理を結合**し、**Outputに反映**  
 
 ## 📷 画面  
 | トレンド | 検索 | 詳細 | お気に入り |
